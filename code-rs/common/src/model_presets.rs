@@ -572,6 +572,24 @@ static PRESETS: Lazy<Vec<ModelPreset>> = Lazy::new(|| {
             pro_only: false,
             show_in_picker: true,
         },
+        ModelPreset {
+            id: "deepseek-coder".to_string(),
+            model: "deepseek-coder".to_string(),
+            display_name: "DeepSeek Coder".to_string(),
+            description: "DeepSeek's code-specialized model optimized for programming and development tasks.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning for coding tasks".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
     ]
 });
 
