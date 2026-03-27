@@ -409,6 +409,18 @@ pub fn find_family_for_model(slug: &str) -> Option<ModelFamily> {
             max_output_tokens: Some(MAX_OUTPUT_DEFAULT),
             truncation_policy: TruncationPolicy::Bytes(10_000),
         )
+    } else if slug.starts_with("deepseek") {
+        // DeepSeek models (deepseek-chat, deepseek-reasoner, etc.)
+        model_family!(
+            slug, "deepseek",
+            supports_reasoning_summaries: true,
+            base_instructions: BASE_INSTRUCTIONS.to_string(),
+            apply_patch_tool_type: Some(ApplyPatchToolType::Freeform),
+            supports_parallel_tool_calls: true,
+            context_window: Some(CONTEXT_WINDOW_128K),
+            max_output_tokens: Some(8_192),
+            truncation_policy: TruncationPolicy::Bytes(10_000),
+        )
     } else {
         None
     }
