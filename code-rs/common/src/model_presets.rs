@@ -531,6 +531,47 @@ static PRESETS: Lazy<Vec<ModelPreset>> = Lazy::new(|| {
             pro_only: false,
             show_in_picker: false,
         },
+        // DeepSeek models
+        ModelPreset {
+            id: "deepseek-chat".to_string(),
+            model: "deepseek-chat".to_string(),
+            display_name: "DeepSeek Chat".to_string(),
+            description: "High-performance Chinese language model with strong coding capabilities.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning for everyday tasks".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
+        ModelPreset {
+            id: "deepseek-reasoner".to_string(),
+            model: "deepseek-reasoner".to_string(),
+            display_name: "DeepSeek V3 (Reasoner)".to_string(),
+            description: "DeepSeek's advanced reasoning model for complex problem-solving.".to_string(),
+            default_reasoning_effort: ReasoningEffort::High,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Standard reasoning depth".to_string(),
+                },
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::High,
+                    description: "Extended reasoning for complex problems".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
     ]
 });
 
