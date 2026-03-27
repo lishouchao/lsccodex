@@ -590,6 +590,138 @@ static PRESETS: Lazy<Vec<ModelPreset>> = Lazy::new(|| {
             pro_only: false,
             show_in_picker: true,
         },
+        // Kimi (Moonshot AI) models
+        ModelPreset {
+            id: "kimi-k2.5".to_string(),
+            model: "kimi-k2.5".to_string(),
+            display_name: "Kimi K2.5".to_string(),
+            description: "Moonshot AI's trillion-parameter model with 256K context for agentic coding.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
+        ModelPreset {
+            id: "moonshot-v1-8k".to_string(),
+            model: "moonshot-v1-8k".to_string(),
+            display_name: "Moonshot v1 8K".to_string(),
+            description: "Moonshot AI model with 8K context window.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
+        ModelPreset {
+            id: "moonshot-v1-32k".to_string(),
+            model: "moonshot-v1-32k".to_string(),
+            display_name: "Moonshot v1 32K".to_string(),
+            description: "Moonshot AI model with 32K context window.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
+        ModelPreset {
+            id: "moonshot-v1-128k".to_string(),
+            model: "moonshot-v1-128k".to_string(),
+            display_name: "Moonshot v1 128K".to_string(),
+            description: "Moonshot AI model with 128K context window for long-form tasks.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
+        // Zhipu GLM models
+        ModelPreset {
+            id: "glm-5".to_string(),
+            model: "glm-5".to_string(),
+            display_name: "GLM-5".to_string(),
+            description: "Zhipu AI's latest flagship model with superior agentic coding capabilities.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning".to_string(),
+                },
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::High,
+                    description: "Extended reasoning for complex tasks".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
+        ModelPreset {
+            id: "glm-4.7".to_string(),
+            model: "glm-4.7".to_string(),
+            display_name: "GLM-4.7".to_string(),
+            description: "Zhipu AI's coding-focused model with strong agentic capabilities.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
+        ModelPreset {
+            id: "glm-4.7-flashx".to_string(),
+            model: "glm-4.7-flashx".to_string(),
+            display_name: "GLM-4.7 FlashX".to_string(),
+            description: "Lightweight high-speed version of GLM-4.7 for quick tasks.".to_string(),
+            default_reasoning_effort: ReasoningEffort::Medium,
+            supported_reasoning_efforts: vec![
+                ReasoningEffortPreset {
+                    effort: ReasoningEffort::Medium,
+                    description: "Balanced speed and reasoning".to_string(),
+                },
+            ],
+            supported_text_verbosity: ALL_TEXT_VERBOSITY,
+            is_default: false,
+            upgrade: None,
+            pro_only: false,
+            show_in_picker: true,
+        },
     ]
 });
 

@@ -421,6 +421,30 @@ pub fn find_family_for_model(slug: &str) -> Option<ModelFamily> {
             max_output_tokens: Some(8_192),
             truncation_policy: TruncationPolicy::Bytes(10_000),
         )
+    } else if slug.starts_with("kimi-k2") || slug.starts_with("moonshot") {
+        // Kimi (Moonshot AI) models
+        model_family!(
+            slug, "kimi",
+            supports_reasoning_summaries: true,
+            base_instructions: BASE_INSTRUCTIONS.to_string(),
+            apply_patch_tool_type: Some(ApplyPatchToolType::Freeform),
+            supports_parallel_tool_calls: true,
+            context_window: Some(CONTEXT_WINDOW_128K),
+            max_output_tokens: Some(8_192),
+            truncation_policy: TruncationPolicy::Bytes(10_000),
+        )
+    } else if slug.starts_with("glm") {
+        // Zhipu GLM models
+        model_family!(
+            slug, "glm",
+            supports_reasoning_summaries: true,
+            base_instructions: BASE_INSTRUCTIONS.to_string(),
+            apply_patch_tool_type: Some(ApplyPatchToolType::Freeform),
+            supports_parallel_tool_calls: true,
+            context_window: Some(CONTEXT_WINDOW_128K),
+            max_output_tokens: Some(8_192),
+            truncation_policy: TruncationPolicy::Bytes(10_000),
+        )
     } else {
         None
     }
