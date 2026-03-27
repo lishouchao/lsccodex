@@ -610,42 +610,6 @@ static PRESETS: Lazy<Vec<ModelPreset>> = Lazy::new(|| {
             show_in_picker: true,
         },
         ModelPreset {
-            id: "moonshot-v1-8k".to_string(),
-            model: "moonshot-v1-8k".to_string(),
-            display_name: "Moonshot v1 8K".to_string(),
-            description: "Moonshot AI model with 8K context window.".to_string(),
-            default_reasoning_effort: ReasoningEffort::Medium,
-            supported_reasoning_efforts: vec![
-                ReasoningEffortPreset {
-                    effort: ReasoningEffort::Medium,
-                    description: "Balanced speed and reasoning".to_string(),
-                },
-            ],
-            supported_text_verbosity: ALL_TEXT_VERBOSITY,
-            is_default: false,
-            upgrade: None,
-            pro_only: false,
-            show_in_picker: true,
-        },
-        ModelPreset {
-            id: "moonshot-v1-32k".to_string(),
-            model: "moonshot-v1-32k".to_string(),
-            display_name: "Moonshot v1 32K".to_string(),
-            description: "Moonshot AI model with 32K context window.".to_string(),
-            default_reasoning_effort: ReasoningEffort::Medium,
-            supported_reasoning_efforts: vec![
-                ReasoningEffortPreset {
-                    effort: ReasoningEffort::Medium,
-                    description: "Balanced speed and reasoning".to_string(),
-                },
-            ],
-            supported_text_verbosity: ALL_TEXT_VERBOSITY,
-            is_default: false,
-            upgrade: None,
-            pro_only: false,
-            show_in_picker: true,
-        },
-        ModelPreset {
             id: "moonshot-v1-128k".to_string(),
             model: "moonshot-v1-128k".to_string(),
             display_name: "Moonshot v1 128K".to_string(),
