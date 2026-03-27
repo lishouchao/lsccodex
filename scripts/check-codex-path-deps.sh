@@ -36,7 +36,29 @@ done < <(find "$CODE_RS_DIR" -name Cargo.toml -print0)
 
 if command -v jq >/dev/null 2>&1; then
   echo "Running cargo metadata guard…"
-  metadata=$(cd "$CODE_RS_DIR" && cargo metadata --format-version 1 --all-features 2>/dev/null)
+  echo "  This may take a moment on first run or when dependencies change…"
+
+  # Run cargo metadata with full output and timeout
+  # Capture both stdout and stderr for better error reporting
+  if ! metadata=$(cd "$CODE_RS_DIR" && timeout 300 cargo metadata --format-version 1 --all-features 2>&1); then
+    exit_code=$?
+    echo "❌ cargo metadata failed with exit code $exit_code" >&2
+    echo "" >&2
+    echo "Common causes:" >&2
+    echo "  • Git mirror issues (check your git config)" >&2
+    echo "  • Network connectivity problems" >&2
+    echo "  • Missing or corrupted dependencies" >&2
+    echo "  • Cargo.lock out of sync with Cargo.toml" >&2
+    echo "" >&2
+    echo "Try:" >&2
+    echo "  1. Check git mirrors: git config --global --get-regexp url" >&2
+    echo "  2. Remove problematic mirrors: git config --global --unset url.\"https://mirrors.ustc.edu.cn/git/\".insteadof" >&2
+    echo "  3. Clear cargo cache: rm -rf ~/.cargo/git/db/*" >&2
+    echo "  4. Update dependencies: cargo update" >&2
+    echo "" >&2
+    exit 1
+  fi
+
   if [[ -n "$metadata" ]]; then
     offenders=$(jq -r \
       --arg forbidden "$FORBIDDEN_DIR" \
@@ -47,6 +69,8 @@ if command -v jq >/dev/null 2>&1; then
       echo "❌ cargo metadata found forbidden manifests:" >&2
       echo "$offenders" >&2
       violations=1
+    else
+      echo "  ✅ cargo metadata check passed"
     fi
   fi
 else

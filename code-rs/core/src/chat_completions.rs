@@ -180,6 +180,12 @@ pub(crate) async fn stream_chat_completions(
     for (idx, item) in input.iter().enumerate() {
         match item {
             ResponseItem::Message { role, content, .. } => {
+                // Map `developer` role to `system` for compatibility with providers
+                // that don't support the `developer` role (e.g., DeepSeek, Moonshot, etc.).
+                // OpenAI supports `developer` as a distinct role from `system`, but most
+                // other providers only support the standard roles: system, user, assistant, tool.
+                let normalized_role = if role == "developer" { "system" } else { role };
+
                 // If the message contains any images, we must use the
                 // multi-modal array form supported by Chat Completions:
                 //   [{ type: "text", text: "..." }, { type: "image_url", image_url: { url: "data:..." } }]
@@ -202,7 +208,7 @@ pub(crate) async fn stream_chat_completions(
                             }
                         }
                     }
-                    messages.push(json!({"role": role, "content": parts}));
+                    messages.push(json!({"role": normalized_role, "content": parts}));
                 } else {
                     // Text-only messages can be sent as a single string for
                     // maximal compatibility with providers that only accept
@@ -217,7 +223,7 @@ pub(crate) async fn stream_chat_completions(
                             _ => {}
                         }
                     }
-                    messages.push(json!({"role": role, "content": text}));
+                    messages.push(json!({"role": normalized_role, "content": text}));
                 }
             }
             ResponseItem::CompactionSummary { .. } => {

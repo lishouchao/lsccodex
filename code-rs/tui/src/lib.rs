@@ -1272,13 +1272,49 @@ pub enum LoginStatus {
     AuthMode(AuthMode),
 }
 
-/// Determine current login status based on auth.json presence.
+/// Determine current login status based on auth.json presence or custom provider API keys.
 pub fn get_login_status(config: &Config) -> LoginStatus {
     let code_home = config.code_home.clone();
     match CodexAuth::from_code_home(&code_home, AuthMode::ChatGPT, &config.responses_originator_header) {
         Ok(Some(auth)) => LoginStatus::AuthMode(auth.mode),
-        _ => LoginStatus::NotAuthenticated,
+        _ => {
+            // Check if user has configured a custom model provider with API key
+            // This allows skipping the login screen when using third-party providers
+            if has_custom_provider_api_key(config) {
+                LoginStatus::AuthMode(AuthMode::ApiKey)
+            } else {
+                LoginStatus::NotAuthenticated
+            }
+        }
     }
+}
+
+/// Check if the user has configured a custom model provider with a valid API key.
+fn has_custom_provider_api_key(config: &Config) -> bool {
+    // Get the current model provider ID
+    let provider_id = &config.model_provider_id;
+
+    // Check if it's not a built-in OpenAI provider (which requires login)
+    if provider_id == "openai" || provider_id == "openai-chat-completions" {
+        return false;
+    }
+
+    // Look up the provider configuration
+    if let Some(provider) = config.model_providers.get(provider_id) {
+        // Check if the provider has an env_key configured
+        if let Some(env_key) = &provider.env_key {
+            // Check if the environment variable is set and non-empty
+            if let Ok(key_value) = std::env::var(env_key) {
+                return !key_value.is_empty();
+            }
+        }
+        // Check if the provider has a bearer token configured
+        if let Some(token) = &provider.experimental_bearer_token {
+            return !token.is_empty();
+        }
+    }
+
+    false
 }
 
 /// Determine if user has configured a sandbox / approval policy,
